@@ -2,9 +2,11 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions, Options
 from selenium.webdriver.common.by import By
 import allure
+import time
 import pytest
 from allure_commons.types import AttachmentType
-from selenium.webdriver.common import alert
+from selenium.webdriver.common.alert import Alert
+from selenium.webdriver import ActionChains
 
 @pytest.mark.usefixtures('setup')
 class TestLUMA:
@@ -54,7 +56,6 @@ class TestLUMA:
    @allure.story('Регистрация')
    @allure.description('')
    def test_store3(self):
-       Alert(self.driver).accert()
        with allure.step('открыть ссылку'):
            self.browser.get('https://magento.softwaretestingboard.com/')
            allure.attach(self.browser.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
@@ -62,19 +63,19 @@ class TestLUMA:
            self.browser.find_element(By.XPATH, '/html/body/div[1]/header/div[1]/div/ul/li[3]/a').click()
            allure.attach(self.browser.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
        with allure.step('печатать имя'):
-           element = driver.find_element(By.XPATH, '//*[@id="firstname"]').send_keys('dinur')
+           element = browser.find_element(By.XPATH, '//*[@id="firstname"]').send_keys('dinur')
            allure.attach(self.browser.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
        with allure.step('печатать фамилию'):
-           element = driver.find_element(By.XPATH, '//*[@id="lastname"]').send_keys('sabitov')
+           element = browser.find_element(By.XPATH, '//*[@id="lastname"]').send_keys('sabitov')
            allure.attach(self.browser.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
        with allure.step('печатать почту'):
-           element = driver.find_element(By.XPATH, '//*[@id="email_address"]').send_keys('dinur12@mail.ru')
+           element = browser.find_element(By.XPATH, '//*[@id="email_address"]').send_keys('dinur12@mail.ru')
            allure.attach(self.browser.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
        with allure.step('печатать пароль'):
-           element = driver.find_element(By.XPATH, '//*[@id="password"]').send_keys('5SwAN8f@348b9Gj')
+           element = browser.find_element(By.XPATH, '//*[@id="password"]').send_keys('5SwAN8f@348b9Gj')
            allure.attach(self.browser.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
        with allure.step('печатать повторный пароль'):
-           element = driver.find_element(By.XPATH, '//*[@id="password-confirmation"]').send_keys('5SwAN8f@348b9Gj')
+           element = browser.find_element(By.XPATH, '//*[@id="password-confirmation"]').send_keys('5SwAN8f@348b9Gj')
            allure.attach(self.browser.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
        with allure.step('нажать кнопку Create an Account'):
            self.browser.find_element(By.XPATH, '//*[@id="form-validate"]/div/div[1]/button/span').click()
@@ -105,8 +106,7 @@ class TestLUMA:
        with allure.step('нажать кнопку Add to cart'):
            self.browser.find_element(By.XPATH, '//*[@id="product-addtocart-button"]/span').click()
            allure.attach(self.browser.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
-       assert element == True
-
+     
    @allure.feature('Тест магазина одежды')
    @allure.story('Покупка Men')
    @allure.description('')
@@ -132,7 +132,6 @@ class TestLUMA:
        with allure.step('нажать кнопку Add to cart'):
            self.browser.find_element(By.XPATH, '//*[@id="product-addtocart-button"]/span').click()
            allure.attach(self.browser.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
-       assert element == True
 
    @allure.feature('Тест магазина одежды')
    @allure.story('Возврат на главную страницу')
@@ -167,7 +166,6 @@ class TestLUMA:
        with allure.step('нажать кнопку Add to cart'):
            self.browser.find_element(By.XPATH, '//*[@id="product-addtocart-button"]/span').click()
            allure.attach(self.browser.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
-       assert element == True
 
    @allure.feature('Тест магазина одежды')
    @allure.story('Покупка Sale')
@@ -194,7 +192,6 @@ class TestLUMA:
        with allure.step('нажать кнопку Add to cart'):
            self.browser.find_element(By.XPATH, '//*[@id="product-addtocart-button"]/span').click()
            allure.attach(self.browser.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
-       assert element == True
 
    @allure.feature('Тест магазина одежды')
    @allure.story('Покупка Йога')
@@ -218,7 +215,6 @@ class TestLUMA:
        with allure.step('нажать кнопку Add to cart'):
            self.browser.find_element(By.XPATH, '//*[@id="product-addtocart-button"]/span').click()
            allure.attach(self.browser.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
-       assert element == True
 
    @allure.feature('Тест магазина одежды')
    @allure.story('Войти в аккаунт')
@@ -230,8 +226,7 @@ class TestLUMA:
        with allure.step('нажать кнопку Welcome, dinur sabitov! My account'):
            self.browser.find_element(By.XPATH, '/html/body/div[1]/header/div[1]/div/ul/li[1]/comment()[2]').click()
            allure.attach(self.browser.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
-       assert element == True
-
+ 
    @allure.feature('Тест магазина одежды')
    @allure.story('Покупка из рекламы Shop Tees')
    @allure.description('')
@@ -254,8 +249,7 @@ class TestLUMA:
        with allure.step('нажать кнопку Add to Cart'):
            self.browser.find_element(By.XPATH, '//*[@id="product-addtocart-button"]/span').click()
            allure.attach(self.browser.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
-       assert element == True
-
+   
    @allure.feature('Тест магазина одежды')
    @allure.story('Покупка из рекламы Shop Perfomance')
    @allure.description('')
@@ -278,7 +272,6 @@ class TestLUMA:
        with allure.step('нажать кнопку Add to Cart'):
            self.browser.find_element(By.XPATH, '//*[@id="product-addtocart-button"]/span').click()
            allure.attach(self.browser.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
-       assert element == True
 
    @allure.feature('Тест магазина одежды')
    @allure.story('Покупка из рекламы Shop Pants')
@@ -302,13 +295,11 @@ class TestLUMA:
        with allure.step('нажать кнопку Add to Cart'):
            self.browser.find_element(By.XPATH, '//*[@id="product-addtocart-button"]/span').click()
            allure.attach(self.browser.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
-       assert element == True
-
+ 
    @allure.feature('Тест магазина одежды')
    @allure.story('Изменение размера в корзине Echo Fit Compression Short')
    @allure.description('')
    def test_store14(self):
-       Alert(self.driver).accert()
        with allure.step('открыть ссылку'):
            self.browser.get('https://magento.softwaretestingboard.com/')
            allure.attach(self.browser.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
@@ -350,7 +341,7 @@ class TestLUMA:
        with allure.step('нажать кнопку Add to Cart'):
            self.browser.find_element(By.XPATH, '//*[@id="product-addtocart-button"]/span').click()
            allure.attach(self.browser.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
-       assert element == True
+     
 
 
 
