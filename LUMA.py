@@ -63,19 +63,19 @@ class TestLUMA:
            self.browser.find_element(By.XPATH, '/html/body/div[1]/header/div[1]/div/ul/li[3]/a').click()
            allure.attach(self.browser.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
        with allure.step('печатать имя'):
-           element = browser.find_element(By.XPATH, '//*[@id="firstname"]').send_keys('dinur')
+           self.browser.find_element(By.XPATH, '//*[@id="firstname"]').send_keys('dinur')
            allure.attach(self.browser.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
        with allure.step('печатать фамилию'):
-           element = browser.find_element(By.XPATH, '//*[@id="lastname"]').send_keys('sabitov')
+           self.browser.find_element(By.XPATH, '//*[@id="lastname"]').send_keys('sabitov')
            allure.attach(self.browser.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
        with allure.step('печатать почту'):
-           element = browser.find_element(By.XPATH, '//*[@id="email_address"]').send_keys('dinur12@mail.ru')
+           self.browser.find_element(By.XPATH, '//*[@id="email_address"]').send_keys('dinur12@mail.ru')
            allure.attach(self.browser.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
        with allure.step('печатать пароль'):
-           element = browser.find_element(By.XPATH, '//*[@id="password"]').send_keys('5SwAN8f@348b9Gj')
+           self.browser.find_element(By.XPATH, '//*[@id="password"]').send_keys('5SwAN8f@348b9Gj')
            allure.attach(self.browser.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
        with allure.step('печатать повторный пароль'):
-           element = browser.find_element(By.XPATH, '//*[@id="password-confirmation"]').send_keys('5SwAN8f@348b9Gj')
+           self.browser.find_element(By.XPATH, '//*[@id="password-confirmation"]').send_keys('5SwAN8f@348b9Gj')
            allure.attach(self.browser.get_screenshot_as_png(), name="Screenshot", attachment_type=AttachmentType.PNG)
        with allure.step('нажать кнопку Create an Account'):
            self.browser.find_element(By.XPATH, '//*[@id="form-validate"]/div/div[1]/button/span').click()
